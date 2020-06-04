@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+$div-width: 270px;
+
+.multiselect {
+  width: auto;
+}
+
+.selectBox {
+  display: flex;
+  select {
+    width: 100%;
+    font-weight: bold;
+  }
+
+  div {
+    margin: 0 5px 0 0;
+  }
+}
+
+.buttonWrapper {
+  width: $div-width;
+}
+
+.overSelect {
+  display:none
+  // position: absolute;
+  // left: 0;
+  // right: 0;
+  // top: 0;
+  // bottom: 0;
+}
+
+.checkboxes {
+  display: block;
+  width: $div-width;
+  border: 1px #dadada solid;
+  border-radius: 5px;
+  text-align: left;
+  padding: 10px 0px 10px 20px;
+
+  label {
+    display: block;
+  }
+
+  label:hover, input:hover {
+    //background-color: #1e90ff;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  input {
+    margin: 0 5px 0 0;
+  }
+}
+
+
