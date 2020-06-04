@@ -1,6 +1,9 @@
 const express = require('express')
 const path = require('path')
 const app = express()
+var cors = require('cors')
+
+app.use(cors())
 
 // Currencies api route
 app.use('/api/currencies', require('./routes/api/Currencies'))
