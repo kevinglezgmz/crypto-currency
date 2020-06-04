@@ -10,8 +10,8 @@ type ResponseData = {
 export const CurrencySelector: React.FC = () => {
   const [state, setState] = React.useState(false)
   const [data, setData] = React.useState([])
-  const [clickedCoins, setCoins] = React.useState(new Map<string, string>())
-  const [query, setQuery] = React.useState('')
+  const [clickedCoins] = React.useState({})
+  const [query, setQuery] = React.useState({ query: '' })
 
   const showBox = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
@@ -19,16 +19,22 @@ export const CurrencySelector: React.FC = () => {
   }
 
   const checkBoxClick = (e: React.MouseEvent<HTMLInputElement, MouseEvent> | any) => {
-    if (!clickedCoins.get(e.target.id)) clickedCoins.set(e.target.id, e.target.id)
-    else clickedCoins.delete(e.target.id)
+    if (!clickedCoins[e.target.id]) clickedCoins[e.target.id] = e.target.id
+    else delete clickedCoins[e.target.id]
     let s: string = ''
-    clickedCoins.forEach((v, k) => {
-      s = s + v + ','
-    })
-    setQuery(s)
+    for (let key in clickedCoins) {
+      s = s + key + ','
+    }
+    // clickedCoins.entries().forEach((v) => {
+    //   s = s + v + ','
+    // })
+    query.query = s
+    setQuery({ query: query.query })
+    console.log(query)
   }
 
   const renderCoins = () => {
+    console.log('rendering coins')
     return data.length > 0 ? (
       <>
         {data.map((element: string) => (
@@ -46,7 +52,7 @@ export const CurrencySelector: React.FC = () => {
   React.useEffect(() => {
     async function fetchData() {
       const res = await axios.get('http://localhost:5001/api/currencies')
-      setData(res.data.map((val: ResponseData) => val.id).filter((val: string) => val.length === 3))
+      setData(res.data.map((val: ResponseData) => val.id)) //.filter((val: string) => val.length === 3))
     }
     if (data.length === 0) {
       fetchData()
@@ -64,7 +70,7 @@ export const CurrencySelector: React.FC = () => {
               </button>
             </div>
             <div className={styles.buttonWrapper}>
-              <Link href={`/prices?coins=${query}`}>
+              <Link href={`/prices?coins=${query.query}`}>
                 <a className="btn btn-primary btn-lg btn-block multiselect">Check prices</a>
               </Link>
             </div>

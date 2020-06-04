@@ -7,8 +7,8 @@ const axios = require('axios')
 router.get('/', async (req, res) => {
   const coins = req.query.ids
   const curr = req.query.curr
-  console.log(req.query)
-  const response = await axios.get(`https://api.nomics.com/v1/currencies/ticker?key=${key}&ids=${coins}&convert=${curr}`)
+  const response = await axios.get(`https://api.nomics.com/v1/currencies/ticker?key=${key}&ids=${coins}&convert=${curr}&interval=1d`)
+  console.log(response.data)
   res.status(200).json(response.data)
 })
 
