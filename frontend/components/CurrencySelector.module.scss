@@ -12,7 +12,7 @@ $div-width: 270px;
     font-weight: bold;
   }
 
-  div {
+  >div:first-child {
     margin: 0 5px 0 0;
   }
 }
@@ -23,11 +23,6 @@ $div-width: 270px;
 
 .overSelect {
   display:none
-  // position: absolute;
-  // left: 0;
-  // right: 0;
-  // top: 0;
-  // bottom: 0;
 }
 
 .checkboxes {
@@ -50,6 +45,27 @@ $div-width: 270px;
 
   input {
     margin: 0 5px 0 0;
+  }
+}
+
+.coinsAndFilter {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+
+  div {
+    width: 270px;
+  }
+
+  >div:first-child {
+    margin-right: 5px;
+  }
+
+  >div:nth-child(2){
+
+    input {
+      height: 47px;
+    }
   }
 }
 
