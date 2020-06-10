@@ -1,71 +1,53 @@
 import React from 'react'
 
-const rawData = ['Hola', 'Amigos', 'como', 'están', 'todos', 'ustedes', 'tontos']
+type PropsType = {
+  props: {
+    coinsData: { coin: string; checked: boolean }[]
+    state: boolean
+    coinSuggestions: { coin: string; checked: boolean }[]
+    setSuggestions: React.Dispatch<
+      React.SetStateAction<
+        {
+          coin: string
+          checked: boolean
+        }[]
+      >
+    >
+  }
+}
 
-export const SearchBar: React.FC = () => {
-  const [state, setState] = React.useState('')
-  const [clicked, setClick] = React.useState(false)
+export default function SearchBar({ props }: PropsType) {
+  const [inputVal, setInputVal] = React.useState('')
+  const { coinsData, state, coinSuggestions, setSuggestions } = props
+
+  const getSuggestions = () => {
+    let suggestions: { coin: string; checked: boolean }[] = []
+    const regex = new RegExp(`^${inputVal}`, 'i')
+    suggestions = coinsData.sort().filter((val) => {
+      return regex.test(val.coin)
+    })
+    if (JSON.stringify(coinSuggestions) !== JSON.stringify(suggestions)) setSuggestions(suggestions)
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setState(e.target.value)
-    setClick(false)
+    setInputVal(e.target.value)
   }
 
-  let suggestions: string[] = []
-
-  const handleSuggestionClick = (val: string) => {
-    setState(val)
-    setClick(true)
-    suggestions = []
-  }
-
-  const renderSuggestions = () => {
-    if (state.length === 0 || clicked) {
-      suggestions = []
-    } else {
-      const regex = new RegExp(`^${state}`, 'i')
-      suggestions = rawData.sort().filter((val) => {
-        return regex.test(val)
-      })
-    }
-    return suggestions.length > 0 ? (
-      <ul>
-        {suggestions.map((element) => (
-          <li onClick={() => handleSuggestionClick(element)} key={element}>
-            {element}
-          </li>
-        ))}
-      </ul>
-    ) : null
-  }
-  const renderSuggestions2 = () => {
-    return rawData.length > 0 ? (
-      <>
-        {rawData.map((element) => (
-          <option value={element} onClick={() => handleSuggestionClick(element)} key={element}>
-            {element}
-          </option>
-        ))}
-      </>
-    ) : null
-  }
+  React.useEffect(() => {
+    getSuggestions()
+  })
 
   return (
-    <>
-      <select name="sad" id="sdas" className="form-control" multiple={true}>
-        {renderSuggestions2()}
-      </select>
+    <div style={{ display: state ? 'block' : 'none' }}>
       <input
         onChange={handleChange}
         className="form-control"
         autoComplete="off"
-        placeholder="Cryptocurrency"
-        value={state}
+        placeholder="Filter coins..."
+        value={inputVal}
         type="text"
         name="search-bar"
       />
-
-      <button>hello</button>
-    </>
+    </div>
   )
 }
