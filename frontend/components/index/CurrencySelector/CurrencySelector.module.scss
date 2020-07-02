@@ -25,33 +25,11 @@ $div-width: 270px;
   display:none
 }
 
-.checkboxes {
-  display: block;
-  width: $div-width;
-  border: 1px #dadada solid;
-  border-radius: 5px;
-  text-align: left;
-  padding: 10px 0px 10px 20px;
-
-  label {
-    display: block;
-  }
-
-  label:hover, input:hover {
-    //background-color: #1e90ff;
-    text-decoration: underline;
-    cursor: pointer;
-  }
-
-  input {
-    margin: 0 5px 0 0;
-  }
-}
-
 .coinsAndFilter {
   display: flex;
   justify-content: flex-end;
   margin-top: 10px;
+  position: absolute;
 
   div {
     width: 270px;
@@ -62,7 +40,6 @@ $div-width: 270px;
   }
 
   >div:nth-child(2){
-
     input {
       height: 47px;
     }

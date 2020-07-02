@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+$div-width: 270px;
+
+.checkboxes {
+  display: block;
+  width: $div-width;
+  max-height: 1.2*$div-width;
+  border: 1px #dadada solid;
+  border-radius: 5px;
+  text-align: left;
+  padding: 10px 0px 10px 20px;
+  overflow: auto;
+
+
+  label {
+    display: block;
+  }
+
+  label:hover, input:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  input {
+    margin: 0 5px 0 0;
+  }
+}
