@@ -1,8 +1,8 @@
 import React from 'react'
 import styles from './CurrencySelector.module.scss'
 import Link from 'next/link'
-import CoinHolder from './CoinHolder'
-import SearchBar from './SearchBarSuggestions'
+import CoinHolder from '../CoinHolder/CoinHolder'
+import FilterSearchBar from '../FilterSearchBar/FilterSearchBar'
 
 type PropsType = {
   props: {
@@ -30,12 +30,12 @@ export default function CurrencySelector({ props }: PropsType) {
   }
 
   return (
-    <form>
+    <div>
       <div className={styles.multiselect}>
         <div className={styles.selectBox}>
           <div className={styles.buttonWrapper}>
             <button type="button" className="btn btn-primary btn-lg btn-block" onClick={showBox}>
-              {!state ? 'Show all coins' : 'Hide coins'}
+              {!state ? 'Show coins' : 'Hide coins'}
             </button>
           </div>
           <div className={styles.buttonWrapper}>
@@ -53,9 +53,9 @@ export default function CurrencySelector({ props }: PropsType) {
             coinsData={coinsData}
             setCoinsData={setCoinsData}
           />
-          <SearchBar props={{ coinsData, state, coinSuggestions, setSuggestions }} />
+          <FilterSearchBar coinsData={coinsData} state={state} coinSuggestions={coinSuggestions} setSuggestions={setSuggestions} />
         </div>
       </div>
-    </form>
+    </div>
   )
 }
